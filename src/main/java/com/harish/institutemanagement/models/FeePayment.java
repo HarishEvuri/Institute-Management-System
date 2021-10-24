@@ -5,10 +5,19 @@ import java.sql.Timestamp;
 public class FeePayment {
 
 	private String transactionId;
-	private String rollNumber;
 	private int feeId;
 	private Timestamp transactionTime;
 	private String modeOfPayment;
+
+	private Student student;
+
+	public Student getStudent() {
+		return student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
+	}
 
 	public String getTransactionId() {
 		return transactionId;
@@ -16,14 +25,6 @@ public class FeePayment {
 
 	public void setTransactionId(String transactionId) {
 		this.transactionId = transactionId;
-	}
-
-	public String getRollNumber() {
-		return rollNumber;
-	}
-
-	public void setRollNumber(String rollNumber) {
-		this.rollNumber = rollNumber;
 	}
 
 	public int getFeeId() {

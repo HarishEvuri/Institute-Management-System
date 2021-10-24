@@ -4,8 +4,17 @@ public class Professor {
 
 	private String professorId;
 	private String qualification;
-	private String employeeId;
 	private String departmentId;
+
+	private Employee employee;
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
 
 	public String getProfessorId() {
 		return professorId;
@@ -21,14 +30,6 @@ public class Professor {
 
 	public void setQualification(String qualification) {
 		this.qualification = qualification;
-	}
-
-	public String getEmployeeId() {
-		return employeeId;
-	}
-
-	public void setEmployeeId(String employeeId) {
-		this.employeeId = employeeId;
 	}
 
 	public String getDepartmentId() {

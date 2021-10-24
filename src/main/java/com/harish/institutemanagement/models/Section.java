@@ -3,11 +3,28 @@ package com.harish.institutemanagement.models;
 public class Section {
 
 	private String sectionId;
-	private String courseId;
 	private String semester;
 	private int year;
 	private String roomNumber;
-	private String professorId;
+
+	private Course course;
+	private Professor professor;
+
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+
+	public Professor getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
+	}
 
 	public String getSectionId() {
 		return sectionId;
@@ -15,14 +32,6 @@ public class Section {
 
 	public void setSectionId(String sectionId) {
 		this.sectionId = sectionId;
-	}
-
-	public String getCourseId() {
-		return courseId;
-	}
-
-	public void setCourseId(String courseId) {
-		this.courseId = courseId;
 	}
 
 	public String getSemester() {
@@ -47,14 +56,6 @@ public class Section {
 
 	public void setRoomNumber(String roomNumber) {
 		this.roomNumber = roomNumber;
-	}
-
-	public String getProfessorId() {
-		return professorId;
-	}
-
-	public void setProfessorId(String professorId) {
-		this.professorId = professorId;
 	}
 
 }

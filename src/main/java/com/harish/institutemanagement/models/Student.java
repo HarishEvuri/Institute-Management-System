@@ -9,8 +9,17 @@ public class Student {
 	private String gaurdianName;
 	private String gaurdianRelation;
 	private String gaurdianPhoneNumber;
-	private String username;
 	private String departmentId;
+
+	private User user;
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public String getRollNumber() {
 		return rollNumber;
@@ -66,14 +75,6 @@ public class Student {
 
 	public void setGaurdianPhoneNumber(String gaurdianPhoneNumber) {
 		this.gaurdianPhoneNumber = gaurdianPhoneNumber;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 	public String getDepartmentId() {

@@ -10,7 +10,16 @@ public class Employee {
 	private String accountNumber;
 	private String bank_IFSC_code;
 	private String panNumber;
-	private String username;
+
+	private User user;
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public String getEmployeeId() {
 		return employeeId;
@@ -58,14 +67,6 @@ public class Employee {
 
 	public void setPanNumber(String panNumber) {
 		this.panNumber = panNumber;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 }

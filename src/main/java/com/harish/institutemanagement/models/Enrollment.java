@@ -2,19 +2,20 @@ package com.harish.institutemanagement.models;
 
 public class Enrollment {
 
-	private String rollNumber;
 	private String sectionId;
 	private String courseId;
 	private String grade;
 	private int attendance;
 	private String feedback;
 
-	public String getRollNumber() {
-		return rollNumber;
+	private Student student;
+
+	public Student getStudent() {
+		return student;
 	}
 
-	public void setRollNumber(String rollNumber) {
-		this.rollNumber = rollNumber;
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 
 	public String getSectionId() {

@@ -6,8 +6,17 @@ public class SalaryPayment {
 
 	private String transactionId;
 	private Timestamp transactionTime;
-	private String employeeId;
 	private String salaryId;
+
+	private Employee employee;
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
 
 	public String getTransactionId() {
 		return transactionId;
@@ -23,14 +32,6 @@ public class SalaryPayment {
 
 	public void setTransactionTime(Timestamp transactionTime) {
 		this.transactionTime = transactionTime;
-	}
-
-	public String getEmployeeId() {
-		return employeeId;
-	}
-
-	public void setEmployeeId(String employeeId) {
-		this.employeeId = employeeId;
 	}
 
 	public String getSalaryId() {

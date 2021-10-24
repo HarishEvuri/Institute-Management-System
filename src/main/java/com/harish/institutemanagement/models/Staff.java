@@ -4,7 +4,16 @@ public class Staff {
 
 	private String staffId;
 	private String designation;
-	private String employeeId;
+
+	private Employee employee;
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
 
 	public String getStaffId() {
 		return staffId;
@@ -20,14 +29,6 @@ public class Staff {
 
 	public void setDesignation(String designation) {
 		this.designation = designation;
-	}
-
-	public String getEmployeeId() {
-		return employeeId;
-	}
-
-	public void setEmployeeId(String employeeId) {
-		this.employeeId = employeeId;
 	}
 
 }

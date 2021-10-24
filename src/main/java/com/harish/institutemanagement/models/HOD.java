@@ -5,9 +5,18 @@ import java.util.Date;
 public class HOD {
 
 	private String departmentId;
-	private String professorId;
 	private Date startDate;
 	private Date endDate;
+
+	private Professor professor;
+
+	public Professor getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
+	}
 
 	public String getDepartmentId() {
 		return departmentId;
@@ -15,14 +24,6 @@ public class HOD {
 
 	public void setDepartmentId(String departmentId) {
 		this.departmentId = departmentId;
-	}
-
-	public String getProfessorId() {
-		return professorId;
-	}
-
-	public void setProfessorId(String professorId) {
-		this.professorId = professorId;
 	}
 
 	public Date getStartDate() {
