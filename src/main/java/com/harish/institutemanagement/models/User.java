@@ -13,7 +13,7 @@ public class User {
 	private String gender;
 	private String address;
 	private Timestamp lastLoginTime;
-	private Boolean isAdmin;
+	private String role;
 
 	public String getUsername() {
 		return username;
@@ -79,12 +79,12 @@ public class User {
 		this.lastLoginTime = lastLoginTime;
 	}
 
-	public Boolean getIsAdmin() {
-		return isAdmin;
+	public String getRole() {
+		return role;
 	}
 
-	public void setIsAdmin(Boolean isAdmin) {
-		this.isAdmin = isAdmin;
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 }

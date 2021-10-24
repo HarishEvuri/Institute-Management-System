@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS User
     gender enum('Male','Female','Not Specified') NOT NULL DEFAULT 'Not Specified',
     address VARCHAR(255) NOT NULL,
     lastLoginTime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    isAdmin BOOLEAN NOT NULL DEFAULT false,
+    role enum('Admin','Student','Employee') NOT NULL,
     PRIMARY KEY (username)
 );
 
