@@ -10,9 +10,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.harish.institutemanagement.models.Fee;
 import com.harish.institutemanagement.models.FeePayment;
-import com.harish.institutemanagement.models.Student;
-import com.harish.institutemanagement.models.User;
 
 @Repository
 public class FeePaymentRepository {
@@ -22,8 +21,8 @@ public class FeePaymentRepository {
 
 	public void createFeePayment(FeePayment feePayment) {
 		String sql = "INSERT INTO FeePayment (transactionId, rollNumber, feeId, transactionTime, modeOfPayment) VALUES (?, ?, ?, ?, ?)";
-		template.update(sql, feePayment.getTransactionId(), feePayment.getStudent().getRollNumber(),
-				feePayment.getFeeId(), feePayment.getTransactionTime(), feePayment.getModeOfPayment());
+		template.update(sql, feePayment.getTransactionId(), feePayment.getRollNumber(), feePayment.getFee().getFeeId(),
+				feePayment.getTransactionTime(), feePayment.getModeOfPayment());
 	}
 
 	public void deleteFeePayment(String transactionId) {
@@ -31,27 +30,20 @@ public class FeePaymentRepository {
 		template.update(sql, transactionId);
 	}
 
-	public List<FeePayment> getAll() {
-		String sql = "SELECT * FROM FeePayment NATURAL JOIN Student NATURAL JOIN User";
+	public List<FeePayment> getFeePaymentsByRollNumber(String rollNumber) {
+		String sql = "SELECT * FROM FeePayment NATURAL JOIN Fee WHERE rollNumber = ?";
 		return template.query(sql, new RowMapper<FeePayment>() {
 
 			public FeePayment mapRow(ResultSet rs, int rowNum) throws SQLException {
-				User user = (new BeanPropertyRowMapper<>(User.class)).mapRow(rs, rowNum);
-
-				Student student = (new BeanPropertyRowMapper<>(Student.class)).mapRow(rs, rowNum);
+				Fee fee = (new BeanPropertyRowMapper<>(Fee.class)).mapRow(rs, rowNum);
 
 				FeePayment feePayment = (new BeanPropertyRowMapper<>(FeePayment.class)).mapRow(rs, rowNum);
 
-				student.setUser(user);
-				feePayment.setStudent(student);
+				feePayment.setFee(fee);
 				return feePayment;
 			}
 
-		});
+		}, new Object[] { rollNumber });
 	}
 
-	public List<FeePayment> getFeePaymentsByRollNumber(String rollNumber) {
-		String sql = "SELECT * FROM FeePayment WHERE rollNumber = ?";
-		return template.query(sql, new BeanPropertyRowMapper<>(FeePayment.class), new Object[] { rollNumber });
-	}
 }

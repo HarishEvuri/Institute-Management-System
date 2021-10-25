@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.harish.institutemanagement.models.Course;
 import com.harish.institutemanagement.models.Employee;
 import com.harish.institutemanagement.models.Professor;
 import com.harish.institutemanagement.models.Section;
@@ -28,13 +29,14 @@ public class SectionRepository {
 	}
 
 	public void updateSection(Section section) {
-		String sql = "UPDATE Section SET semester = ?, year = ?, roomNumber = ?, professorId = ? WHERE sectionId = ? AND courseId = ?";
+		String sql = "UPDATE Section SET semester = ?, year = ?, roomNumber = ?, professorId = ?, isLocked = ? WHERE sectionId = ? AND courseId = ?";
 		template.update(sql, section.getSemester(), section.getYear(), section.getRoomNumber(),
-				section.getProfessor().getProfessorId(), section.getSectionId(), section.getCourse().getCourseId());
+				section.getProfessor().getProfessorId(), section.getIsLocked(), section.getSectionId(),
+				section.getCourse().getCourseId());
 	}
 
 	public List<Section> getSectionsByCourseId(String courseId) {
-		String sql = "SELECT * FROM Section NATURAL JOIN Professor NATURAL JOIN Employee NATURL JOIN User";
+		String sql = "SELECT * FROM Section NATURAL JOIN Professor NATURAL JOIN Employee NATURL JOIN User WHERE courseId = ?";
 		return template.query(sql, new RowMapper<Section>() {
 
 			public Section mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -50,6 +52,23 @@ public class SectionRepository {
 				return section;
 			}
 
-		});
+		}, new Object[] { courseId });
+	}
+
+	public List<Section> getSectionsByProfessorId(String professorId) {
+		String sql = "SELECT * FROM Section NATURAL JOIN Course WHERE professorId = ?";
+
+		return template.query(sql, new RowMapper<Section>() {
+
+			public Section mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+				Course course = (new BeanPropertyRowMapper<>(Course.class)).mapRow(rs, rowNum);
+				Section section = (new BeanPropertyRowMapper<>(Section.class)).mapRow(rs, rowNum);
+
+				section.setCourse(course);
+				return section;
+			}
+
+		}, new Object[] { professorId });
 	}
 }

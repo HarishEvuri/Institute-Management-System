@@ -6,6 +6,7 @@ public class Section {
 	private String semester;
 	private int year;
 	private String roomNumber;
+	private Boolean isLocked;
 
 	private Course course;
 	private Professor professor;
@@ -56,6 +57,14 @@ public class Section {
 
 	public void setRoomNumber(String roomNumber) {
 		this.roomNumber = roomNumber;
+	}
+
+	public Boolean getIsLocked() {
+		return isLocked;
+	}
+
+	public void setIsLocked(Boolean isLocked) {
+		this.isLocked = isLocked;
 	}
 
 }

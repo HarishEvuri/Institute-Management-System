@@ -6,16 +6,24 @@ public class SalaryPayment {
 
 	private String transactionId;
 	private Timestamp transactionTime;
-	private String salaryId;
+	private String employeeId;
 
-	private Employee employee;
+	private Salary salary;
 
-	public Employee getEmployee() {
-		return employee;
+	public String getEmployeeId() {
+		return employeeId;
 	}
 
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
+	public void setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
+	}
+
+	public Salary getSalary() {
+		return salary;
+	}
+
+	public void setSalary(Salary salary) {
+		this.salary = salary;
 	}
 
 	public String getTransactionId() {
@@ -32,14 +40,6 @@ public class SalaryPayment {
 
 	public void setTransactionTime(Timestamp transactionTime) {
 		this.transactionTime = transactionTime;
-	}
-
-	public String getSalaryId() {
-		return salaryId;
-	}
-
-	public void setSalaryId(String salaryId) {
-		this.salaryId = salaryId;
 	}
 
 }

@@ -2,13 +2,12 @@ package com.harish.institutemanagement.models;
 
 public class Enrollment {
 
-	private String sectionId;
-	private String courseId;
 	private String grade;
 	private int attendance;
 	private String feedback;
 
 	private Student student;
+	private Section section;
 
 	public Student getStudent() {
 		return student;
@@ -18,20 +17,12 @@ public class Enrollment {
 		this.student = student;
 	}
 
-	public String getSectionId() {
-		return sectionId;
+	public Section getSection() {
+		return section;
 	}
 
-	public void setSectionId(String sectionId) {
-		this.sectionId = sectionId;
-	}
-
-	public String getCourseId() {
-		return courseId;
-	}
-
-	public void setCourseId(String courseId) {
-		this.courseId = courseId;
+	public void setSection(Section section) {
+		this.section = section;
 	}
 
 	public String getGrade() {

@@ -21,7 +21,7 @@ public class CourseRepository {
 	}
 
 	public void updateCourse(Course course) {
-		String sql = "UPDATE Course SET name = ?, credits = ?, departmentid = ? WHERE courseId = ?";
+		String sql = "UPDATE Course SET name = ?, credits = ?, departmentId = ? WHERE courseId = ?";
 		template.update(sql, course.getName(), course.getCredits(), course.getDepartmentId(), course.getCourseId());
 	}
 
@@ -33,5 +33,10 @@ public class CourseRepository {
 	public List<Course> getAll() {
 		String sql = "SELECT * FROM Course";
 		return template.query(sql, new BeanPropertyRowMapper<>(Course.class));
+	}
+
+	public List<Course> getCoursesByDepartmentId(String departmentId) {
+		String sql = "SELECT * FROM Course WHERE departmentId = ?";
+		return template.query(sql, new BeanPropertyRowMapper<>(Course.class), new Object[] { departmentId });
 	}
 }

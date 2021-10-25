@@ -10,9 +10,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.harish.institutemanagement.models.Employee;
+import com.harish.institutemanagement.models.Salary;
 import com.harish.institutemanagement.models.SalaryPayment;
-import com.harish.institutemanagement.models.User;
 
 @Repository
 public class SalaryPaymentRepository {
@@ -23,7 +22,7 @@ public class SalaryPaymentRepository {
 	public void createSalaryPayment(SalaryPayment salaryPayment) {
 		String sql = "INSERT INTO SalaryPayment (transactionId, transactionTime, employeeId, salaryId) VALUES (?, ?, ?, ?)";
 		template.update(sql, salaryPayment.getTransactionId(), salaryPayment.getTransactionTime(),
-				salaryPayment.getEmployee().getEmployeeId(), salaryPayment.getSalaryId());
+				salaryPayment.getEmployeeId(), salaryPayment.getSalary().getSalaryId());
 	}
 
 	public void deleteSalaryPayment(String transactionId) {
@@ -31,28 +30,20 @@ public class SalaryPaymentRepository {
 		template.update(sql, transactionId);
 	}
 
-	public List<SalaryPayment> getAll() {
-		String sql = "SELECT * FROM SalaryPayment NATURAL JOIN Employee NATURAL JOIN User";
+	public List<SalaryPayment> getSalaryPaymentsByEmployeeId(String employeeId) {
+		String sql = "SELECT * FROM SalaryPayment NATURAL JOIN Salary WHERE employeeId = ?";
+
 		return template.query(sql, new RowMapper<SalaryPayment>() {
 
 			public SalaryPayment mapRow(ResultSet rs, int rowNum) throws SQLException {
 
-				User user = (new BeanPropertyRowMapper<>(User.class)).mapRow(rs, rowNum);
-
-				Employee employee = (new BeanPropertyRowMapper<>(Employee.class)).mapRow(rs, rowNum);
-
+				Salary salary = (new BeanPropertyRowMapper<>(Salary.class)).mapRow(rs, rowNum);
 				SalaryPayment salaryPayment = (new BeanPropertyRowMapper<>(SalaryPayment.class)).mapRow(rs, rowNum);
 
-				employee.setUser(user);
-				salaryPayment.setEmployee(employee);
+				salaryPayment.setSalary(salary);
 				return salaryPayment;
 			}
 
-		});
-	}
-
-	public List<SalaryPayment> getSalaryPaymentsByEmployeeId(String employeeId) {
-		String sql = "SELECT * FROM SalaryPayment WHERE employeeId = ?";
-		return template.query(sql, new BeanPropertyRowMapper<>(SalaryPayment.class), new Object[] { employeeId });
+		}, new Object[] { employeeId });
 	}
 }

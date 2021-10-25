@@ -48,4 +48,23 @@ public class ProfessorRepository {
 
 		});
 	}
+
+	public List<Professor> getProfessorsByDepartmentId(String departmentId) {
+		String sql = "SELECT * FROM Professor NATURAL JOIN Employee NATURAL JOIN User WHERE departmentId = ?";
+
+		return template.query(sql, new RowMapper<Professor>() {
+
+			public Professor mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+				User user = (new BeanPropertyRowMapper<>(User.class)).mapRow(rs, rowNum);
+				Employee employee = (new BeanPropertyRowMapper<>(Employee.class)).mapRow(rs, rowNum);
+				Professor professor = (new BeanPropertyRowMapper<>(Professor.class)).mapRow(rs, rowNum);
+
+				employee.setUser(user);
+				professor.setEmployee(employee);
+				return professor;
+			}
+
+		}, new Object[] { departmentId });
+	}
 }

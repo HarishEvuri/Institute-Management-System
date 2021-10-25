@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS User
     gender enum('Male','Female','Not Specified') NOT NULL DEFAULT 'Not Specified',
     address VARCHAR(255) NOT NULL,
     lastLoginTime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    role enum('Admin','Student','Employee') NOT NULL,
+    role enum('Admin','Student','Professor', 'Staff') NOT NULL,
     PRIMARY KEY (username)
 );
 
@@ -132,7 +132,7 @@ CREATE TABLE IF NOT EXISTS HOD
     departmentId VARCHAR(50) NOT NULL,
     professorId VARCHAR(50) NOT NULL,
     startDate DATE NOT NULL,
-    endDate DATE,
+    endDate DATE DEFAULT NULL,
     FOREIGN KEY (departmentId) REFERENCES Department(departmentId),
     FOREIGN KEY (professorId) REFERENCES Professor(professorId),
     PRIMARY KEY (departmentId, professorId, startDate)
@@ -156,6 +156,7 @@ CREATE TABLE IF NOT EXISTS Section
     year INT NOT NULL,
     roomNumber VARCHAR(50) NOT NULL,
     professorId VARCHAR(50) NOT NULL,
+    isLocked BOOLEAN NOT NULL DEFAULT VALUE false,
     FOREIGN KEY (courseId) REFERENCES Course(courseId),
     FOREIGN KEY (professorId) REFERENCES Professor(professorId),
     PRIMARY KEY (sectionId, courseId)
@@ -184,9 +185,9 @@ CREATE TABLE IF NOT EXISTS Enrollment
     rollNumber VARCHAR(50) NOT NULL,
     sectionId VARCHAR(50) NOT NULL,
     courseId VARCHAR(50) NOT NULL,
-    grade enum('A','A-','B','B-','C','C-','F') NOT NULL,
-    attendance INT NOT NULL,
-    feedback VARCHAR(500) NOT NULL,
+    grade enum('A','A-','B','B-','C','C-','F','Not Graded') NOT NULL DEFAULT 'Not Graded',
+    attendance INT DEFAULT NULL,
+    feedback VARCHAR(500) DEFAULT NULL,
     FOREIGN KEY (rollNumber) REFERENCES Student(rollNumber),
     FOREIGN KEY (sectionId, courseId) REFERENCES Section(sectionId, courseId),
     PRIMARY KEY (rollNumber, sectionId, courseId)
