@@ -3,6 +3,7 @@ package com.harish.institutemanagement.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.harish.institutemanagement.models.User;
@@ -13,7 +14,12 @@ public class UserRepository {
 	@Autowired
 	private JdbcTemplate template;
 
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 	public void createUser(User user) {
+
+		user.setPasswordHash(bCryptPasswordEncoder.encode(user.getPasswordHash()));
 		String sql = "INSERT INTO User (username, passwordHash, firstName, lastName, dateOfBirth, gender, address, lastLoginTime, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		template.update(sql, user.getUsername(), user.getPasswordHash(), user.getFirstName(), user.getLastName(),
@@ -27,6 +33,8 @@ public class UserRepository {
 	}
 
 	public void updateUser(User user) {
+
+		user.setPasswordHash(bCryptPasswordEncoder.encode(user.getPasswordHash()));
 		String sql = "UPDATE User SET passwordHash = ?, firstName = ?, lastName = ?, dateOfBirth = ?, gender = ?, address = ? WHERE username = ?";
 
 		template.update(sql, user.getPasswordHash(), user.getFirstName(), user.getLastName(), user.getDateOfBirth(),
