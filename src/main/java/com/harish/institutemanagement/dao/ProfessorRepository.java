@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -24,6 +25,36 @@ public class ProfessorRepository {
 		String sql = "INSERT INTO Professor (professorId, qualification, employeeId, departmentId) VALUES (?, ?, ?, ?)";
 		template.update(sql, professor.getProfessorId(), professor.getQualification(),
 				professor.getEmployee().getEmployeeId(), professor.getDepartmentId());
+	}
+
+	public Professor getProfessorByEmployeeId(String employeeId) {
+		String sql = "SELECT * FROM Professor WHERE employeeId = ?";
+
+		try {
+			return template.queryForObject(sql, new BeanPropertyRowMapper<>(Professor.class),
+					new Object[] { employeeId });
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+
+	public Professor getProfessorByProfessorId(String professorId) {
+		String sql = "SELECT * FROM Professor WHERE professorId = ?";
+		try {
+			return template.queryForObject(sql, new RowMapper<Professor>() {
+
+				public Professor mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+					Employee employee = (new BeanPropertyRowMapper<>(Employee.class)).mapRow(rs, rowNum);
+					Professor professor = (new BeanPropertyRowMapper<>(Professor.class)).mapRow(rs, rowNum);
+
+					professor.setEmployee(employee);
+					return professor;
+				}
+			}, new Object[] { professorId });
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
 	}
 
 	public void updateProfessor(Professor professor) {
@@ -49,9 +80,8 @@ public class ProfessorRepository {
 		});
 	}
 
-	public List<Professor> getProfessorsByDepartmentId(String departmentId) {
+	public List<Professor> getProfessorByDepartment(String departmentId) {
 		String sql = "SELECT * FROM Professor NATURAL JOIN Employee NATURAL JOIN User WHERE departmentId = ?";
-
 		return template.query(sql, new RowMapper<Professor>() {
 
 			public Professor mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -67,4 +97,5 @@ public class ProfessorRepository {
 
 		}, new Object[] { departmentId });
 	}
+
 }

@@ -3,6 +3,7 @@ package com.harish.institutemanagement.dao;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -33,6 +34,16 @@ public class DepartmentRepository {
 	public List<Department> getAll() {
 		String sql = "SELECT * FROM Department";
 		return template.query(sql, new BeanPropertyRowMapper<>(Department.class));
+	}
+
+	public Department getDepartment(String departmentId) {
+		try {
+			String sql = "SELECT * FROM Department WHERE departmentId = ?";
+			return template.queryForObject(sql, new BeanPropertyRowMapper<>(Department.class),
+					new Object[] { departmentId });
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
 	}
 
 }

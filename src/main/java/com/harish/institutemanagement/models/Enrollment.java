@@ -4,7 +4,6 @@ public class Enrollment {
 
 	private String grade;
 	private int attendance;
-	private String feedback;
 
 	private Student student;
 	private Section section;
@@ -39,14 +38,6 @@ public class Enrollment {
 
 	public void setAttendance(int attendance) {
 		this.attendance = attendance;
-	}
-
-	public String getFeedback() {
-		return feedback;
-	}
-
-	public void setFeedback(String feedback) {
-		this.feedback = feedback;
 	}
 
 }

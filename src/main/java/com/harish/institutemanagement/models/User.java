@@ -1,19 +1,35 @@
 package com.harish.institutemanagement.models;
 
+import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.Date;
+
+import javax.validation.constraints.NotBlank;
 
 public class User {
 
 	private String username;
 	private String passwordHash;
+
+	@NotBlank
 	private String firstName;
+
+	@NotBlank
 	private String lastName;
+
+	@NotBlank
+	private String emailAddress;
+
 	private Date dateOfBirth;
+
+	@NotBlank
 	private String gender;
+
+	@NotBlank
 	private String address;
+
 	private Timestamp lastLoginTime;
 	private String role;
+	private String token;
 
 	public String getUsername() {
 		return username;
@@ -45,6 +61,14 @@ public class User {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
 	}
 
 	public Date getDateOfBirth() {
@@ -85,6 +109,14 @@ public class User {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 }

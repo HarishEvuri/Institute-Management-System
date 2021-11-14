@@ -1,16 +1,29 @@
 package com.harish.institutemanagement.models;
 
-import java.util.Date;
+import java.sql.Date;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 public class Employee {
 
 	private String employeeId;
 	private Date joinDate;
 	private Date endDate;
+
+	@NotBlank
 	private String accountNumber;
+
+	@NotBlank
+	@Pattern(regexp = "^[A-Z]{4}[0-9]{7}$", message = "must be a valid IFSC code")
 	private String bank_IFSC_code;
+
+	@NotBlank
+	@Pattern(regexp = "^[A-Z]{5}[0-9]{4}[A-Z]{1}$", message = "must be a valid PAN Number")
 	private String panNumber;
 
+	@Valid
 	private User user;
 
 	public User getUser() {

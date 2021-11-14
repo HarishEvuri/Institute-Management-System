@@ -3,6 +3,7 @@ package com.harish.institutemanagement.dao;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -26,7 +27,7 @@ public class CourseRepository {
 	}
 
 	public void deleteCourse(String courseId) {
-		String sql = "DELETE FROM Course WHERE coursId = ?";
+		String sql = "DELETE FROM Course WHERE courseId = ?";
 		template.update(sql, courseId);
 	}
 
@@ -35,8 +36,13 @@ public class CourseRepository {
 		return template.query(sql, new BeanPropertyRowMapper<>(Course.class));
 	}
 
-	public List<Course> getCoursesByDepartmentId(String departmentId) {
-		String sql = "SELECT * FROM Course WHERE departmentId = ?";
-		return template.query(sql, new BeanPropertyRowMapper<>(Course.class), new Object[] { departmentId });
+	public Course getCourseByCourseId(String courseId) {
+		try {
+			String sql = "SELECT * FROM Course WHERE courseId = ?";
+			return template.queryForObject(sql, new BeanPropertyRowMapper<>(Course.class), new Object[] { courseId });
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
 	}
+
 }

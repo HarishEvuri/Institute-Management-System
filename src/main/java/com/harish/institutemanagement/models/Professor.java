@@ -1,11 +1,19 @@
 package com.harish.institutemanagement.models;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+
 public class Professor {
 
 	private String professorId;
+
+	@NotBlank
 	private String qualification;
+
+	@NotBlank
 	private String departmentId;
 
+	@Valid
 	private Employee employee;
 
 	public Employee getEmployee() {

@@ -37,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
-		http.authorizeRequests().antMatchers("/", "/login", "/welcome", "/logout").permitAll();
+		http.authorizeRequests().antMatchers("/", "/welcome", "/user/**", "/css/**", "/img/**", "/js/**").permitAll();
 
 		http.authorizeRequests().antMatchers("/student/**").access("hasAnyAuthority('Student')");
 
@@ -47,9 +47,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.authorizeRequests().antMatchers("/admin/**").access("hasAnyAuthority('Admin')");
 
-		http.authorizeRequests().anyRequest().authenticated().and().formLogin().loginPage("/login")
-				.failureUrl("/login?error=true").defaultSuccessUrl("/welcome", true).and().logout().logoutUrl("/logout")
-				.logoutSuccessUrl("/login?logout");
+		http.authorizeRequests().anyRequest().authenticated().and().formLogin().loginPage("/user/login")
+				.failureUrl("/user/login?error=true").defaultSuccessUrl("/welcome").and().logout()
+				.logoutUrl("/user/logout").logoutSuccessUrl("/user/login?logout");
 	}
 
 }

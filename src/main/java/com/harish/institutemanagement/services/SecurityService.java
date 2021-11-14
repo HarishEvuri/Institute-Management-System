@@ -30,4 +30,8 @@ public class SecurityService {
 		}
 		return null;
 	}
+
+	public void autoLogout() {
+		SecurityContextHolder.clearContext();
+	}
 }

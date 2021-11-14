@@ -1,11 +1,19 @@
 package com.harish.institutemanagement.models;
 
+import javax.validation.constraints.NotBlank;
+
 public class Section {
 
 	private String sectionId;
+
+	@NotBlank
 	private String semester;
+
 	private int year;
+
+	@NotBlank
 	private String roomNumber;
+
 	private Boolean isLocked;
 
 	private Course course;

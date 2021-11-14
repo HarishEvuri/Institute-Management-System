@@ -1,16 +1,36 @@
 package com.harish.institutemanagement.models;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
 public class Student {
 
 	private String rollNumber;
+
+	@NotNull
 	private int joinYear;
+
+	@NotBlank
 	private String caste;
+
+	@NotBlank
 	private String familyIncome;
+
+	@NotBlank
 	private String gaurdianName;
+
+	@NotBlank
 	private String gaurdianRelation;
+
+	@Pattern(regexp = "^[1-9][0-9]{9,9}$", message = "must be a valid phone number")
 	private String gaurdianPhoneNumber;
+
+	@NotBlank
 	private String departmentId;
 
+	@Valid
 	private User user;
 
 	public User getUser() {

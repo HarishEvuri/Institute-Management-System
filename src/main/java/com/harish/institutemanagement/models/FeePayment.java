@@ -1,31 +1,25 @@
 package com.harish.institutemanagement.models;
 
-import java.sql.Timestamp;
+import java.sql.Date;
+import java.sql.Time;
+
+import javax.validation.constraints.NotBlank;
 
 public class FeePayment {
 
 	private String transactionId;
-	private String rollNumber;
-	private Timestamp transactionTime;
+	private Date transactionDate;
+	private Time transactionTime;
+
+	@NotBlank
+	private String semester;
+	private int year;
+	private int amount;
+
+	@NotBlank
 	private String modeOfPayment;
 
-	private Fee fee;
-
-	public String getRollNumber() {
-		return rollNumber;
-	}
-
-	public void setRollNumber(String rollNumber) {
-		this.rollNumber = rollNumber;
-	}
-
-	public Fee getFee() {
-		return fee;
-	}
-
-	public void setFee(Fee fee) {
-		this.fee = fee;
-	}
+	private Student student;
 
 	public String getTransactionId() {
 		return transactionId;
@@ -35,12 +29,44 @@ public class FeePayment {
 		this.transactionId = transactionId;
 	}
 
-	public Timestamp getTransactionTime() {
+	public Date getTransactionDate() {
+		return transactionDate;
+	}
+
+	public void setTransactionDate(Date transactionDate) {
+		this.transactionDate = transactionDate;
+	}
+
+	public Time getTransactionTime() {
 		return transactionTime;
 	}
 
-	public void setTransactionTime(Timestamp transactionTime) {
+	public void setTransactionTime(Time transactionTime) {
 		this.transactionTime = transactionTime;
+	}
+
+	public String getSemester() {
+		return semester;
+	}
+
+	public void setSemester(String semester) {
+		this.semester = semester;
+	}
+
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
+	}
+
+	public int getAmount() {
+		return amount;
+	}
+
+	public void setAmount(int amount) {
+		this.amount = amount;
 	}
 
 	public String getModeOfPayment() {
@@ -49,6 +75,14 @@ public class FeePayment {
 
 	public void setModeOfPayment(String modeOfPayment) {
 		this.modeOfPayment = modeOfPayment;
+	}
+
+	public Student getStudent() {
+		return student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 
 }

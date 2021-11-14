@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -25,6 +26,36 @@ public class StudentRepository {
 				student.getFamilyIncome(), student.getGaurdianName(), student.getGaurdianRelation(),
 				student.getGaurdianPhoneNumber(), student.getUser().getUsername(), student.getDepartmentId());
 
+	}
+
+	public Student getStudentByUsername(String username) {
+		String sql = "SELECT * FROM Student WHERE username = ?";
+
+		try {
+			return template.queryForObject(sql, new BeanPropertyRowMapper<>(Student.class), new Object[] { username });
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+
+	public Student getStudentByRollNumber(String rollNumber) {
+		String sql = "SELECT * FROM Student WHERE rollNumber = ?";
+
+		try {
+			return template.queryForObject(sql, new RowMapper<Student>() {
+
+				public Student mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+					User user = (new BeanPropertyRowMapper<>(User.class)).mapRow(rs, rowNum);
+					Student student = (new BeanPropertyRowMapper<>(Student.class)).mapRow(rs, rowNum);
+
+					student.setUser(user);
+					return student;
+				}
+			}, new Object[] { rollNumber });
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
 	}
 
 	public void updateStudent(Student student) {
@@ -48,4 +79,5 @@ public class StudentRepository {
 
 		});
 	}
+
 }

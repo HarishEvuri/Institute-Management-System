@@ -1,10 +1,16 @@
 package com.harish.institutemanagement.models;
 
+import javax.validation.constraints.NotBlank;
+
 public class SectionTiming {
 
 	private String sectionId;
 	private String courseId;
+
+	@NotBlank
 	private String day;
+
+	@NotBlank
 	private String slot;
 
 	public String getSectionId() {

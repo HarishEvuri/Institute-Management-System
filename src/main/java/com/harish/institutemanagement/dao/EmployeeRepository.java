@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -24,6 +25,37 @@ public class EmployeeRepository {
 		template.update(sql, employee.getEmployeeId(), employee.getJoinDate(), employee.getEndDate(),
 				employee.getAccountNumber(), employee.getBank_IFSC_code(), employee.getPanNumber(),
 				employee.getUser().getUsername());
+	}
+
+	public Employee getEmployeeByUsername(String username) {
+		String sql = "SELECT * FROM Employee WHERE username = ?";
+
+		try {
+			return template.queryForObject(sql, new BeanPropertyRowMapper<>(Employee.class), new Object[] { username });
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+
+	public Employee getEmployeeByEmployeeId(String employeeId) {
+		String sql = "SELECT * FROM Employee WHERE employeeId = ?";
+
+		try {
+			return template.queryForObject(sql, new RowMapper<Employee>() {
+
+				public Employee mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+					User user = (new BeanPropertyRowMapper<>(User.class)).mapRow(rs, rowNum);
+					Employee employee = (new BeanPropertyRowMapper<>(Employee.class)).mapRow(rs, rowNum);
+
+					employee.setUser(user);
+					return employee;
+				}
+
+			}, new Object[] { employeeId });
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
 	}
 
 	public void updateEmployee(Employee employee) {

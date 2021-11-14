@@ -1,10 +1,16 @@
 package com.harish.institutemanagement.models;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+
 public class Staff {
 
 	private String staffId;
+
+	@NotBlank
 	private String designation;
 
+	@Valid
 	private Employee employee;
 
 	public Employee getEmployee() {

@@ -1,9 +1,15 @@
 package com.harish.institutemanagement.models;
 
+import javax.validation.constraints.NotBlank;
+
 public class Department {
 
 	private String departmentId;
+
+	@NotBlank
 	private String departmentName;
+
+	@NotBlank
 	private String address;
 
 	public String getDepartmentId() {
