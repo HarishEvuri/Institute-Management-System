@@ -48,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/admin/**").access("hasAnyAuthority('Admin')");
 
 		http.authorizeRequests().anyRequest().authenticated().and().formLogin().loginPage("/user/login")
-				.failureUrl("/user/login?error=true").defaultSuccessUrl("/welcome").and().logout()
+				.failureUrl("/user/login?error=true").defaultSuccessUrl("/welcome", true).and().logout()
 				.logoutUrl("/user/logout").logoutSuccessUrl("/user/login?logout");
 	}
 
