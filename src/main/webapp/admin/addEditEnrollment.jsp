@@ -58,7 +58,7 @@
                         <td style="width: 15%"></td>
                         <th style="width: 35%;">Attendance</th>
                         <td style="width: 50%">
-                            <form:input type="number" path="attendance" class="form-control" required="true" placeholder="Attendance"></form:input>
+                            <form:input type="number" path="attendance" min="0" max="100" class="form-control" required="true" placeholder="Attendance"></form:input>
                         </td>
                     </tr>
                 </table>
