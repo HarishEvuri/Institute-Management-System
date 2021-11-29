@@ -1,6 +1,7 @@
 package com.harish.institutemanagement.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import com.harish.institutemanagement.models.User;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+	@Lazy
 	@Autowired
 	private UserRepository userRepository;
 
